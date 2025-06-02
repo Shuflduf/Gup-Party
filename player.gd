@@ -12,13 +12,13 @@ func _physics_process(delta: float) -> void:
 		input_dir = Input.get_joy_axis(controller_index, JOY_AXIS_LEFT_X)
 	print(input_dir)
 	
-	var jump_scale = (0.37/(scale.x+0.07)+0.65)
-	velocity.x = input_dir * speed * jump_scale
+	# desmos moment
+	var movement_scale = (0.37/(scale.x+0.07)+0.65)
+	velocity.x = input_dir * speed * movement_scale
 	velocity.y += get_gravity().y * delta
 	
 	if Input.is_action_just_pressed("jump"):
-		
-		velocity.y = -500 * jump_scale
+		velocity.y = -500 * movement_scale
 		
 	if Input.is_action_just_pressed("mitose"):
 		for i in 2:
@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 			p.velocity.y = -300
 			p.scale /= 2
 			p.velocity.x = 100 * (i * 2 - 1)
-		
 			get_parent().add_child(p)
 		queue_free()
 	
